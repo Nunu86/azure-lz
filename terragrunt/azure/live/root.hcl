@@ -4,43 +4,52 @@ locals{
     creator = "nunu"
     tenant_id = "b6164648-f2cf-4f8f-90e5-5958e56b5461"
 
-subscription_vars = read_terragrunt_config(find_in_parent_folders("terragrunt.hcl"))
+    default_tags = {
+    organization = local.organization
+    owner        = local.owner
+    creator      = local.creator
+  }
+
+  subscription_vars = read_terragrunt_config(find_in_parent_folders("terragrunt.hcl"))
   subscriptions     = local.subscription_vars.locals.subscriptions
 
-  # Get the subscription folder name dynamically from the path
-  subscription_folder_name = try(split("/", path_relative_to_include())[1], "")
-  default_subscription_name = "landingzoneA" 
-  subscription_name = lookup(local.subscriptions, local.subscription_folder_name, local.default_subscription_name)
-  subscription_id   = local.subscriptions[local.subscription_name].id
-  
-/*
- subscription_vars = read_terragrunt_config("terragrunt.hcl")
- subscriptions   = local.subscription_vars.locals.subscriptions
- subscription_name = basename(dirname(dirname(path_relative_to_include()))) 
- subscription_id = local.subscriptions[local.subscription_name].id
- */
+  default_subscription = local.subscriptions["default"]
+
+ # subscription_folder_name = try(split("/", path_relative_to_include())[1], "")
+  subscription_folder_name = try(
+    basename(dirname(dirname(get_terragrunt_dir()))),
+    "default"
+  )
+
+  subscription = lookup(local.subscriptions, local.subscription_folder_name, local.default_subscription
+  )
+
+  subscription_id = local.subscription.id 
+
 }
 
 generate "provider" {
-    path = "provider.tf"
-    if_exists = "overwrite"
-    contents = <<EOF
+  path = "provider.tf"
+  if_exists = "overwrite"
+  contents = <<EOF
 terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~> 4.0"
+      version = "~> 4.64.0"
     }
   }
 }
+
 provider "azurerm" {
   features {}
   subscription_id = "${local.subscription_id}"
   tenant_id       = "${local.tenant_id}"
-
+  
 }
 EOF
 }
+
 
 remote_state {
   backend = "azurerm"
