@@ -15,7 +15,7 @@ inputs = {
   azure_oidc_config = {
     mgmt = {
       issuer_url = "https://token.actions.githubusercontent.com"
-      subject    = "repo:lner/infra-iac-azurerm-lz:ref:refs/heads/main"
+      subject    = "repo:Nunu86/azure-lz:ref:refs/heads/main"
       audiences  = ["api://AzureADTokenExchange"]
 
       role_assignments = [

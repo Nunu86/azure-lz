@@ -1,9 +1,9 @@
 locals{
   #organization metadata
-    organization = "lner"
-    owner = "IT"
-    creator = "terraform"
-    tenant_id = "85b85c7b-057b-44e0-940b-0356101da9d5"
+    #organization = "nunu"
+    #owner = "IT"
+    #creator = "terraform"
+    tenant_id = "b6164648-f2cf-4f8f-90e5-5958e56b5461"
 
     
   #subscription details
@@ -12,17 +12,17 @@ locals{
   remote_state_subscription = local.subscriptions["remote_state"]   #subscription where terraform state will be stored, this is just for reference in the remote state configuration in the generate block below. This subscription is not meant to be brought into terraform management.
   
   subscription_name = basename(dirname(dirname(get_terragrunt_dir())))
-  default_subscription = local.subscriptions["platform"]        #default subscription to use if subscription_name is not found in subscriptions map
+  default_subscription = local.subscriptions["landingzoneA"]        #default subscription to use if subscription_name is not found in subscriptions map
 
   subscription = lookup(local.subscriptions, local.subscription_name, local.default_subscription)
   subscription_id = local.subscription.id 
 
   #default_tags
-  default_tags = {
-    organization = local.organization
-    owner        = local.owner
-    creator      = local.creator
-  }
+  #default_tags = {
+   # organization = local.organization
+   # owner        = local.owner
+  #  creator      = local.creator
+ # }
 
 }
 
@@ -32,10 +32,7 @@ generate "provider" {
   contents = <<EOF
 terraform {
   required_providers {
-   azuread = {      
-      source  = "hashicorp/azuread"
-      version = "~> 3.0"
-    }
+   
 
     azurerm = {
       source  = "hashicorp/azurerm"
@@ -44,9 +41,7 @@ terraform {
   }
 }
 
-provider "azuread" {
-  tenant_id = "${local.tenant_id}"
-}
+
 
 
 provider "azurerm" {
@@ -66,11 +61,11 @@ remote_state {
     if_exists = "overwrite"
   }
   config = {
-    resource_group_name  = "rg_terraform_backend"
-    storage_account_name = "lnerterraformstate"
+    resource_group_name  = "terraform-state-backend"
+    storage_account_name = "terraformstatebacken"
     container_name       = "tf-state"
     key                  = "${path_relative_to_include()}/terraform.tfstate"
     subscription_id      = local.remote_state_subscription.id       
-    use_azuread_auth     = true 
+   # use_azuread_auth     = true 
   }
 }
