@@ -12,21 +12,21 @@ locals {
 
 
 terraform {
-  source = "../../../modules/management_group"
+  source = "../../../../modules/management_group"
 }
 
 dependency "management_groups" {
-  config_path = "../root"
+  config_path = "${dirname(path_relative_to_include())}"
 }
 
 
 
 inputs = {  
   mg_config = {    
-    platform ={
+    connectivity ={
       name         = local.mg_name
       display_name = local.mg_display_name      
-      parent_mg_id = dependency.management_groups.outputs.mg_ids["mg"]
+      parent_mg_id = dependency.management_groups.outputs.mg_ids["platform"]
       default_tags = include.root.locals.default_tags
   }}
 }

@@ -8,3 +8,5 @@ output "mg_ids" {
 output "mg_names" {
   value = { for k, mg in azurerm_management_group.az_mg : k => mg.name }
 }
+
+

@@ -12,26 +12,15 @@ locals {
 
 
 terraform {
-  source = "../../../modules/management_group"
+  source = "../../../modules/caf_management_group"
 }
 
-dependency "management_groups" {
-  config_path = "../root"
-}
-
-
-
-inputs = {  
-  mg_config = {    
-    platform ={
+inputs = {
+  mg_config = {
+    mg ={
       name         = local.mg_name
       display_name = local.mg_display_name      
-      parent_mg_id = dependency.management_groups.outputs.mg_ids["mg"]
+      parent_mg_id = ""
       default_tags = include.root.locals.default_tags
   }}
 }
-
-dependency "oidc" {
-  config_path = "../../oidc"
-}
-
