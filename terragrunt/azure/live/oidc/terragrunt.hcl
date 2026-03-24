@@ -8,14 +8,14 @@ terraform {
 }
 
 locals {
-  mg_policy_scope = "/providers/Microsoft.Management/managementGroups/lner_mg_root"
+  mg_policy_scope = "/providers/Microsoft.Management/managementGroups/nunu_mg_root"
 }
 
 inputs = {
   azure_oidc_config = {
     mgmt = {
       issuer_url = "https://token.actions.githubusercontent.com"
-      subject    = "repo:Nunu86/azure-lz:ref:refs/heads/main"
+      subject    = "repo:Nunu86/azure-lz:*"
       audiences  = ["api://AzureADTokenExchange"]
 
       role_assignments = [
@@ -37,7 +37,7 @@ inputs = {
         # Storage Blob Data Contributor
         {
           role_definition_name = "Storage Blob Data Contributor"          #this role is needed to allow OIDC to write to the terraform state storage account in the remote state subscription. 
-          scope                = "/subscriptions/${include.root.locals.remote_state_subscription.id}/resourceGroups/rg_terraform_backend/providers/Microsoft.Storage/storageAccounts/lnerterraformstate"
+          scope                = "/subscriptions/${include.root.locals.remote_state_subscription.id}/resourceGroups/terraform-state-backend/providers/Microsoft.Storage/storageAccounts/terraformstatebacken"
         }
       
 
