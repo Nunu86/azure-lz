@@ -33,6 +33,13 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+
+      - name: Debug OIDC Token
+        run: |
+         echo "Event: $ {{ github.event_name }}"
+         echo "Ref: ${{github.ref}}"
+         
+
       - name: Azure Login (OIDC)
         uses: azure/login@v2
         with:
