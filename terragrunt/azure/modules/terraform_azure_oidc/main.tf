@@ -67,3 +67,4 @@ resource "azurerm_role_assignment" "oidc" {
   principal_id = azuread_service_principal.oidc.object_id
 }
 
+#test
