@@ -34,6 +34,10 @@ inputs = {
         {
           role_definition_name = "Storage Blob Data Contributor"
           scope = "/subscriptions/${include.root.locals.remote_state_subscription.id}/resourceGroups/terraform-state-backend/providers/Microsoft.Storage/storageAccounts/terraformstatebacken"
+        },
+        {
+          role_definition_name = "Storage Account Key Operator Service Role"
+          scope = "/subscriptions/${include.root.locals.remote_state_subscription.id}/resourceGroups/terraform-state-backend/providers/Microsoft.Storage/storageAccounts/terraformstatebacken"
         }
       ]
     },
