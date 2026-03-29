@@ -108,7 +108,10 @@ jobs:
         env:
           TF_IN_AUTOMATION: true
         run: |
-          terragrunt run-all apply --terragrunt-non-interactive --auto-approve
+          terragrunt run-all apply \
+            --terragrunt-include-dir oidc \
+            --terragrunt-non-interactive
+            --auto-approve
 
 
   #ignore      
