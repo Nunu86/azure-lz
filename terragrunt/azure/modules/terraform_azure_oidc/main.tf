@@ -12,7 +12,7 @@ locals {
   
 role_assignment_map = {
     for r in local.flattened_role_assignments :
-    "${r.key}-${r.role_definition_name}" => r
+    "${r.key}-${r.role_definition_name}-${replace(r.scope, "/", "_")}" => r
   }
 
 }
