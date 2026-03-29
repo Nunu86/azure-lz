@@ -83,9 +83,11 @@ jobs:
 
   Apply:
     name: Apply
-    needs: WaitForApproval
+    needs: Plan
     if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-22.04
+    environment:
+      name: production
     
 
    
