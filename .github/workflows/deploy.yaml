@@ -65,7 +65,11 @@ jobs:
         env:
           TF_IN_AUTOMATION: true
         run: |
-          terragrunt plan --terragrunt-non-interactive --auto-approve
+          terragrunt run-all plan \
+          --terragrunt-include-dir oidc \
+          --terragrunt-include-dir subs \
+          --terragrunt-non-interactive 
+          
           
 
   Apply:
@@ -105,7 +109,12 @@ jobs:
         env:
           TF_IN_AUTOMATION: true
         run: |
-          terragrunt apply --terragrunt-non-interactive --auto-approve
+          run: |
+          terragrunt run-all apply \
+          --terragrunt-include-dir oidc \
+          --terragrunt-include-dir subs \
+          --terragrunt-non-interactive \
+          --auto-approve
 
 
   #ignore      
