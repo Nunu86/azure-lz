@@ -32,15 +32,15 @@ inputs = {
           scope                = local.mg_policy_scope
         },
 
-        {
-          role_definition_name = "Contributor"
-          scope                = "/subscriptions/${include.root.locals.subscription.id}"
-        },
-
-         #{
+        #{
          # role_definition_name = "Contributor"
-        #  scope = "/subscriptions/${include.root.locals.remote_state_subscription.id}/resourceGroups/terraform-state-backend/providers/Microsoft.Storage/storageAccounts/terraformstatebacken"
-       # },
+         # scope                = "/subscriptions/${include.root.locals.subscription.id}"
+        #},
+
+         {
+          role_definition_name = "Contributor"
+         scope = "/subscriptions/${include.root.locals.remote_state_subscription.id}/resourceGroups/terraform-state-backend/providers/Microsoft.Storage/storageAccounts/terraformstatebacken"
+       },
 
         {
           role_definition_name = "Storage Blob Data Contributor"
