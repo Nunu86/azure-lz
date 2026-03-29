@@ -13,9 +13,9 @@ locals {
 
 inputs = {
   azure_oidc_config = {
-    workflow_dispatch = {
+    pull_request = {
       issuer_url = "https://token.actions.githubusercontent.com"
-      subject    = "repo:Nunu86/azure-lz:ref:refs/heads/main"
+      subject    = "repo:Nunu86/azure-lz:pull_request"
       audiences  = ["api://AzureADTokenExchange"]
 
       role_assignments = [
@@ -37,10 +37,10 @@ inputs = {
           scope                = "/subscriptions/${include.root.locals.subscription.id}"
         },
 
-         {
-          role_definition_name = "Contributor"
-          scope = "/subscriptions/${include.root.locals.remote_state_subscription.id}/resourceGroups/terraform-state-backend/providers/Microsoft.Storage/storageAccounts/terraformstatebacken"
-        },
+         #{
+         # role_definition_name = "Contributor"
+        #  scope = "/subscriptions/${include.root.locals.remote_state_subscription.id}/resourceGroups/terraform-state-backend/providers/Microsoft.Storage/storageAccounts/terraformstatebacken"
+       # },
 
         {
           role_definition_name = "Storage Blob Data Contributor"
@@ -53,9 +53,9 @@ inputs = {
       ]
     },
 
-    pull_request = {
+    workflow_dispatch = {
       issuer_url = "https://token.actions.githubusercontent.com"
-      subject    = "repo:Nunu86/azure-lz:pull_request"
+      subject    = "repo:Nunu86/azure-lz:ref:refs/heads/main"
       audiences  = ["api://AzureADTokenExchange"]
 
       role_assignments = []
