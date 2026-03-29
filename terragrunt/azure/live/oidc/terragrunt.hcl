@@ -60,6 +60,16 @@ inputs = {
 
       role_assignments = []
        
+    },
+
+
+    env_production = {
+      issuer_url = "https://token.actions.githubusercontent.com"
+      subject    = "repo:Nunu86/azure-lz:environment:production"
+      audiences  = ["api://AzureADTokenExchange"]
+
+      role_assignments = []
+       
     }
   }
 }
