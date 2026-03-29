@@ -70,13 +70,22 @@ jobs:
           --terragrunt-include-dir subs \
           --terragrunt-non-interactive 
           
-          
+
+  WaitForApproval:
+    needs: Plan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Await manual approval
+        uses: peter-evans/wait-for-approval@v2
+        #with:
+          #approvers: your-github-username
+
 
   Apply:
     name: Apply
     if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-22.04
-    needs: [Plan]
+    needs: [Plan, WaitForApproval]
 
    
 
@@ -104,7 +113,8 @@ jobs:
           sudo chmod +x /usr/local/bin/terragrunt
           terragrunt -v
 
-      - name: Terragrunt Apply
+  
+      - name: Terragrunt Apply        
         working-directory: terragrunt/azure/live
         env:
           TF_IN_AUTOMATION: true
