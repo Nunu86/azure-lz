@@ -66,8 +66,10 @@ jobs:
           TF_IN_AUTOMATION: true
         run: |
           terragrunt run-all plan \
-            --terragrunt-include-dir oidc \
-            --terragrunt-non-interactive
+          --terragrunt-include-dir oidc \
+          --terragrunt-include-dir subs \
+          --terragrunt-non-interactive 
+          
           
 
   Apply:
@@ -76,8 +78,7 @@ jobs:
     runs-on: ubuntu-22.04
     needs: [Plan]
 
-    environment:
-      name: all-environments
+   
 
     steps:
       - name: Checkout Code
@@ -108,10 +109,12 @@ jobs:
         env:
           TF_IN_AUTOMATION: true
         run: |
+          run: |
           terragrunt run-all apply \
-            --terragrunt-include-dir oidc \
-            --terragrunt-non-interactive
-            --auto-approve
+          --terragrunt-include-dir oidc \
+          --terragrunt-include-dir subs \
+          --terragrunt-non-interactive \
+          --auto-approve
 
 
   #ignore      
