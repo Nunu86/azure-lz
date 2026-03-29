@@ -65,8 +65,10 @@ jobs:
         env:
           TF_IN_AUTOMATION: true
         run: |
-          terragrunt run-all plan --terragrunt-non-interactive
-
+          terragrunt run-all plan \
+            --terragrunt-include-dir oidc \
+            --terragrunt-non-interactive
+          
 
   Apply:
     name: Apply
