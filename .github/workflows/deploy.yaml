@@ -71,14 +71,7 @@ jobs:
           --terragrunt-non-interactive 
           
 
-  WaitForApproval:
-    needs: Plan
-    runs-on: ubuntu-latest
-    steps:
-      - name: Await manual approval
-        uses: peter-evans/wait-for-approval@v2
-        #with:
-          #approvers: your-github-username
+ 
 
 
   Apply:
