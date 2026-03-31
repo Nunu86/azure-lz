@@ -1,8 +1,8 @@
 locals{
   #organization metadata
-    #organization = "nunu"
-    #owner = "IT"
-    #creator = "terraform"
+    organization = "nunu"
+    owner = "IT"
+    creator = "terraform"
     tenant_id = "b6164648-f2cf-4f8f-90e5-5958e56b5461"
 
     
