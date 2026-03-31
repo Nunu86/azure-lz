@@ -1,0 +1,14 @@
+quiet: false
+compact: false
+
+working-directory: terragrunt/azure/live
+
+skip-check:
+  - CKV_AZURE_99 # Ignore this check for all files because it's a custom check that doesn't apply to our codebase
+  - CKV_AZURE_249 # Ignore this check for all files because it's a
+
+framework:
+  -terraform
+    
+
+soft-fail: true

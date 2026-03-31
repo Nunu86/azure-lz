@@ -24,6 +24,23 @@ permissions:
 
 jobs:
 
+  checkov:
+    name: Checkov
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Install Checkov
+        run: |
+          pip install checkov
+
+      - name: Run Checkov
+        working-directory: terragrunt/azure/live
+        run: |
+          checkov -d . --config-file .checkov.yml 
+
   Plan:
     name: Plan
     if: github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch'
