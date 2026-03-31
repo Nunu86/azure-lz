@@ -18,11 +18,11 @@ locals{
   subscription_id = local.subscription.id 
 
   #default_tags
-  #default_tags = {
-   # organization = local.organization
-   # owner        = local.owner
-  #  creator      = local.creator
- # }
+  default_tags = {
+    organization = local.organization
+    owner        = local.owner
+   creator      = local.creator
+  }
 
 }
 
