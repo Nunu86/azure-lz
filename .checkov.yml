@@ -8,7 +8,7 @@ skip-check:
   - CKV_AZURE_249 # Ignore this check for all files because it's a
 
 framework:
-  -terraform
+  - terraform
     
 
 soft-fail: true
