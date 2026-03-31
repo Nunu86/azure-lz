@@ -39,7 +39,7 @@ jobs:
       - name: Run Checkov
         
         run: |
-          checkov -d terragrunt/azure/live --config-file .checkov.yml 
+          checkov -d terragrunt/azure/modules --config-file .checkov.yml 
 
   Plan:
     name: Plan
