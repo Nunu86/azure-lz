@@ -37,9 +37,9 @@ jobs:
           pip install checkov
 
       - name: Run Checkov
-        working-directory: terragrunt/azure/live
+        
         run: |
-          checkov -d . --config-file .checkov.yml 
+          checkov -d terragrunt/azure/live --config-file .checkov.yml 
 
   Plan:
     name: Plan
