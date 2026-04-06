@@ -15,12 +15,16 @@ terraform {
   source = "../../../modules/management_group"
 }
 
+dependency "mg" {
+  config_path = "../root"
+}
+
 inputs = {
   mg_config = {
-    mg ={
+    platform ={
       name         = local.mg_name
       display_name = local.mg_display_name      
-      parent_mg_id = ""
+      parent_mg_id = dependency.mg.outputs.mg_ids["mg"]
      # default_tags = include.root.locals.default_tags
   }}
 }

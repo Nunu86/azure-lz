@@ -3,8 +3,16 @@ include "root" {
   expose = true
 }
 
+locals { 
+
+    mg_name = "nunu_mg_${basename(path_relative_to_include())}"
+    mg_display_name = "${title(replace(replace(local.mg_name, "-", " "), "_", " "))}"
+   
+    platform_mg_name = "nunu_mg_${basename(path_relative_to_include())}"
+}
+
 terraform {
-  source = "../../modules/subscription"
+  source = "../../../modules/subscription"
 }
 
 
@@ -19,7 +27,13 @@ inputs = {
       #billing_scope_id    = "/billingAccounts/000000-000000-000000/enrollmentAccounts/000000-000000-000000/billingProfiles/000000-000000-000000/billingSubscriptions/000000-000000-000000"
       #workload            = "Production"
       
+    },
+
+    platform_sub = {
+      
+    subscription_id     = "f3466ce7-9525-4306-bfe7-ee0cc1394d80"
+    management_group_name = local.platform_mg_name
+    
     }
     }
-  
 }
