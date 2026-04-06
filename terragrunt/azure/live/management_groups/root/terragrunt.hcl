@@ -25,6 +25,3 @@ inputs = {
   }}
 }
 
-dependencies {
-  paths = ["../../oidc"]
-}

@@ -1,7 +1,13 @@
 output "name" {
-  value = azurerm_resource_group.rg.name
+  value = {
+    for k, v in azurerm_resource_group.rg :
+    k => v.name
+  }
 }
 
 output "id" {
-  value = azurerm_resource_group.rg.id
+  value = {
+    for k, v in azurerm_resource_group.rg :
+    k => v.id
+  }
 }

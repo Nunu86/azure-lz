@@ -1,5 +1,6 @@
 resource "azurerm_resource_group" "rg" {
-  name     = var.rg_config.name
-  location = var.rg_config.location
-  tags     = var.rg_config.tags
+  for_each = var.resource_group
+  name     = var.rg_config[each.key].name
+  location = var.rg_config[each.key].location
+  tags     = var.rg_config[each.key].tags
 }
