@@ -12,7 +12,10 @@ locals {
       
     }
 
-    
+    platform ={
+      id   = "f3466ce7-9525-4306-bfe7-ee0cc1394d80"
+      name = "platform"
+    }
    
   }
 }

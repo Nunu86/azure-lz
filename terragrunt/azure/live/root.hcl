@@ -7,8 +7,7 @@ locals{
 
     
   #subscription details
-# Load global subscription map
-#default_subscription_vars = read_terragrunt_config(find_in_parent_folders("subscriptions.hcl"))
+
 default_subscription_vars = read_terragrunt_config("${get_repo_root()}/terragrunt/azure/live/subscriptions.hcl")
 # Load the subscription name for THIS folder
 subscription_vars = try(

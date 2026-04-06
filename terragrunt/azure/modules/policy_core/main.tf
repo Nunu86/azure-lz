@@ -7,9 +7,9 @@ data "azurerm_policy_definition" "built_in" {
 locals {
   built_in_policy_guids = {
     allowed_locations = "e56962a6-4747-49cd-b67b-bf8b01975c4c"     #  allowed_locations is the name of the built in policy we dont use name as variable here because we want to be able to identify other built in policies by their ref name in the initiative policy_refs list, and the value is the guid of the built in policy which we need to look up the id for assignment and initiative references
-    deploy_diagnostics = "0120ef84-66e7-4faf-aad8-14c36389697e "   # deploy_diagnostics is the name of the built in policy we dont use name as variable here because we want to be able to identify other built in policies by their ref name in the initiative policy_refs list, and the value is the guid of the built in policy which we need to look up the id for assignment and initiative references
+    #deploy_diagnostics = "0120ef84-66e7-4faf-aad8-14c36389697e "   # deploy_diagnostics is the name of the built in policy we dont use name as variable here because we want to be able to identify other built in policies by their ref name in the initiative policy_refs list, and the value is the guid of the built in policy which we need to look up the id for assignment and initiative references
     #mcsb               = "058e9719-1ff9-3653-4230-23f76b6492e0"
-    #log_analytics_workspace = "087dbf66-448d-4235-b7b8-17af48edc9db"
+    log_analytics_workspace = "087dbf66-448d-4235-b7b8-17af48edc9db"
     #security_alerts   ="171e377b-5224-4a97-1eaa-62a3b5231dac"
     #notify_failed_security_events = "18e9d748-73d4-0c96-55ab-b108bfbd5bc3"
     # add more here
@@ -128,9 +128,10 @@ resource "azurerm_management_group_policy_assignment" "assignments" {
   local.built_in_policy_ids[each.value.policy_definition_ref],
   local.custom_policy_ids[each.value.policy_definition_ref]
 )
-
-
   parameters = jsonencode(each.value.parameters)
+  
+  # REQUIRED when identity is used
+  location = each.value.identity_required ? "uksouth" : null
 
   dynamic "identity" {
     for_each = each.value.identity_required ? [1] : []
@@ -152,4 +153,4 @@ resource "azurerm_resource_policy_exemption" "exemptions" {
   display_name         = each.value.display_name
   description          = each.value.description
 }
-  
+
